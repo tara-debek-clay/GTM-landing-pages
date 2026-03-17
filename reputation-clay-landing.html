@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clay × Reputation — Built for Your Revenue Team</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #FB7232;
+    --dark: #1D1D1D;
+    --bg: #F5F0E8;
+    --card-bg: #FFFFFF;
+    --card-border: #E8E3DA;
+    --text-primary: #1D1D1D;
+    --text-secondary: #5A5449;
+    --text-muted: #8C8478;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245, 240, 232, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-orange {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+  .btn-orange:hover { opacity: 0.88; }
+
+  .btn-white {
+    background: #FFFFFF !important;
+    color: #1D1D1D !important;
+    border: 1.5px solid #1D1D1D !important;
+    border-radius: 999px;
+    padding: 9px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn-white:hover { background: #F5F0E8 !important; }
+
+  /* HERO */
+  .hero {
+    padding: 100px 40px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid var(--card-border);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange);
+    margin-bottom: 32px;
+    letter-spacing: 0.01em;
+  }
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--orange);
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  .hero h1 {
+    font-size: 62px;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: var(--dark);
+    max-width: 820px;
+    margin-bottom: 28px;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    font-weight: 400;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+
+  .btn-orange-lg {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.15s;
+  }
+  .btn-orange-lg:hover { opacity: 0.88; }
+
+  .btn-white-lg {
+    background: #FFFFFF !important;
+    color: #1D1D1D !important;
+    border: 1.5px solid #1D1D1D !important;
+    border-radius: 999px;
+    padding: 13px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: background 0.15s;
+  }
+  .btn-white-lg:hover { background: #F5F0E8 !important; }
+
+  /* TRUST BAR */
+  .trust-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .trust-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+    margin-right: 4px;
+  }
+
+  .logo-chip {
+    background: #fff;
+    border: 1.5px solid var(--card-border);
+    border-radius: 999px;
+    padding: 7px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 96px 40px;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    color: var(--dark);
+    max-width: 640px;
+    margin-bottom: 56px;
+  }
+
+  /* PAIN POINTS */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .pain-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .pain-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #FEF0E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .pain-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.2px;
+    line-height: 1.3;
+  }
+
+  .pain-card p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* HOW IT WORKS – DARK */
+  .section-dark {
+    background: var(--dark);
+    padding: 96px 40px;
+  }
+
+  .section-dark .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-dark .section-eyebrow { color: var(--orange); }
+  .section-dark .section-title { color: #fff; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .step-card {
+    background: #2A2A2A;
+    border: 1.5px solid #383838;
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+  }
+
+  .step-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+  }
+
+  .step-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+
+  .step-card p {
+    font-size: 15px;
+    color: #9E9890;
+    line-height: 1.65;
+  }
+
+  .step-tag {
+    display: inline-block;
+    background: #FB7232;
+    color: #fff;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  /* VALUE PROPS */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .value-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: 16px;
+    padding: 36px;
+  }
+
+  .value-icon {
+    font-size: 28px;
+    margin-bottom: 18px;
+    display: block;
+  }
+
+  .value-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .value-card p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .metric-box {
+    background: var(--bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: inline-block;
+  }
+
+  .metric-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: -1px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* SOCIAL PROOF */
+  .logos-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+
+  .pullquote {
+    background: var(--card-bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: 20px;
+    padding: 48px;
+    max-width: 760px;
+  }
+
+  .pullquote blockquote {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 28px;
+    letter-spacing: -0.2px;
+    font-style: normal;
+  }
+
+  .quote-open {
+    font-size: 56px;
+    color: var(--orange);
+    line-height: 0.6;
+    display: block;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  .quotee {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .quotee-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FB7232 0%, #f4a261 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .quotee-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+
+  .quotee-title {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* INTEGRATIONS */
+  .integrations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .integration-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: 14px;
+    padding: 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .integration-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #F5F0E8;
+    border: 1.5px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .integration-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+    letter-spacing: -0.1px;
+  }
+
+  .integration-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* SECURITY – DARK */
+  .security-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .security-item {
+    background: #2A2A2A;
+    border: 1.5px solid #383838;
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .security-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 16px;
+  }
+
+  .security-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .security-item p {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    text-align: center;
+    padding: 120px 40px;
+  }
+
+  .final-cta h2 {
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.08;
+    color: var(--dark);
+    max-width: 720px;
+    margin: 0 auto 20px;
+  }
+
+  .final-cta p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.65;
+  }
+
+  .final-cta-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    padding: 32px 40px;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 14px;
+    color: #666;
+  }
+
+  footer span {
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    height: 1px;
+    background: var(--card-border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero h1 { font-size: 42px; letter-spacing: -0.8px; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .value-grid { grid-template-columns: 1fr; }
+    .integrations-grid { grid-template-columns: repeat(2, 1fr); }
+    .security-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-title { font-size: 32px; }
+    .final-cta h2 { font-size: 36px; }
+    header { padding: 0 20px; }
+    section { padding: 72px 20px; }
+    .hero { padding: 72px 20px 60px; }
+    .section-dark { padding: 72px 20px; }
+    .final-cta { padding: 80px 20px; }
+    footer { padding: 28px 20px; }
+  }
+
+  @media (max-width: 600px) {
+    .header-actions .btn-white { display: none; }
+    .integrations-grid { grid-template-columns: 1fr; }
+    .security-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <a href="#" class="header-logo">Clay</a>
+  <div class="header-actions">
+    <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">Book a Demo</a>
+    <a href="https://www.clay.com/templates" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;border:1.5px solid #1D1D1D!important;">Explore How It Works</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section style="padding:0;">
+  <div class="hero">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Built for Reputation using Clay
+    </div>
+    <h1>Find and close the executives at every multi-location account</h1>
+    <p class="hero-sub">
+      Build precise account lists, surface the right VP-level contacts, and reach them with messaging anchored to their actual review data — automatically.
+    </p>
+    <div class="hero-actions">
+      <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange-lg">See a Live Demo for Reputation</a>
+      <a href="https://www.clay.com/templates" class="btn-white-lg" style="background:#FFFFFF!important;color:#1D1D1D!important;border:1.5px solid #1D1D1D!important;">Explore How It Works</a>
+    </div>
+    <div class="trust-bar">
+      <span class="trust-label">Trusted by revenue teams at</span>
+      <span class="logo-chip">Intercom</span>
+      <span class="logo-chip">Verkada</span>
+      <span class="logo-chip">OpenAI</span>
+      <span class="logo-chip">Ramp</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PAIN POINTS ===== -->
+<section>
+  <div class="section-inner">
+    <div class="section-eyebrow">The Problem</div>
+    <h2 class="section-title">Your stack is holding you back</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">🏥</div>
+        <h3>Multi-location accounts are impossible to prioritize</h3>
+        <p>Healthcare systems, auto groups, and retail chains have hundreds of locations — but your current data tools can't tell you which ones have broken listings, poor review velocity, or active competitor exposure. Clay stitches together public review signals, location data, and firmographics so your AEs always know which accounts have the highest urgency right now.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🎯</div>
+        <h3>Outbound messaging lands flat without context</h3>
+        <p>Generic sequences about "online reputation" get ignored by VP-level CX and operations buyers. Clay enriches every account with their current star ratings, recent negative reviews, listing accuracy scores, and industry benchmarks — so every outreach is specific to what's broken at their company, not a category pitch.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🔁</div>
+        <h3>Expansion and upsell signals go unacted on</h3>
+        <p>Reputation's best growth comes from expanding into new verticals or locations inside existing customers — but there's no system to detect when a healthcare customer just acquired a new hospital group, or when a retail chain opened 40 new stores. Clay monitors for these signals automatically and routes them to your CS and expansion AEs before they miss the window.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<div class="section-dark">
+  <div class="section-inner">
+    <div class="section-eyebrow">How Clay Works</div>
+    <h2 class="section-title" style="color:#fff;">Three steps from data to pipeline</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <span class="step-tag">Unify &amp; Enrich</span>
+        <h3>Unify &amp; Enrich</h3>
+        <p>Pull every multi-location enterprise account matching Reputation's ICP — healthcare systems, auto dealer groups, retail chains, property managers — and enrich each with 100+ firmographic, technographic, and behavioral signals. Surface live review scores, listing health, and CX tool usage across 50+ data providers in a single enrichment waterfall. No ops headcount required.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <span class="step-tag">Score &amp; Orchestrate</span>
+        <h3>Score &amp; Orchestrate</h3>
+        <p>Apply account scoring logic built specifically for Reputation's buyer profile — weighting by number of locations, current average star rating, listing accuracy gaps, competitor tool indicators, and recent hiring signals for CX leadership. Route high-priority accounts to outbound sequences automatically and flag expansion triggers for your CS team the moment they occur.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <span class="step-tag">Activate &amp; Measure</span>
+        <h3>Activate &amp; Measure</h3>
+        <p>Sync enriched, scored accounts into Salesforce with all signals attached. Push hyper-personalized sequences through your preferred sales engagement platform — each message anchored to the prospect's actual review data or listing issue, not a template. Track which signals convert fastest, refine your scoring model, and compound your pipeline output every quarter.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== VALUE PROPS ===== -->
+<section>
+  <div class="section-inner">
+    <div class="section-eyebrow">Why Clay</div>
+    <h2 class="section-title">Built for the problems Reputation's team faces</h2>
+    <div class="value-grid">
+      <div class="value-card">
+        <span class="value-icon">🏢</span>
+        <h3>Multi-location account targeting at scale</h3>
+        <p>Build precise account lists for healthcare systems, auto dealer groups, and retail chains — filtered by number of locations, industry vertical, current review volume, and CX tech stack. Clay waterfall-enriches each account across 50+ data providers so you never hit dead ends on coverage. Your AEs open every call with the right context, not a blank CRM record.</p>
+        <div class="metric-box">
+          <span class="metric-value">3.8×</span>
+          <span class="metric-label">more accounts researched per rep per week</span>
+        </div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">✉️</span>
+        <h3>Outbound personalized to their actual review data</h3>
+        <p>Clay's AI researcher pulls each prospect's live Google and Yelp star ratings, most recent negative reviews, and listing completeness scores — then uses that to write a first sentence that's impossible to ignore. Reference the specific operational gap you can fix for their brand, not a generic pitch about reputation management software.</p>
+        <div class="metric-box">
+          <span class="metric-value">41%</span>
+          <span class="metric-label">average reply rate lift on signal-personalized outbound</span>
+        </div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">📡</span>
+        <h3>Intent and trigger-based prospecting</h3>
+        <p>Monitor for the moments that create buying urgency — a healthcare system acquiring a new network, a retail brand announcing store expansion, a VP of CX hired at a target account, or a competitor's contract expiring. Clay surfaces these triggers in real time and queues them for immediate outreach before the window closes.</p>
+        <div class="metric-box">
+          <span class="metric-value">2.1×</span>
+          <span class="metric-label">higher conversion rate on trigger-based outreach vs. cold</span>
+        </div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">📈</span>
+        <h3>Expansion pipeline from existing accounts</h3>
+        <p>Reputation's biggest growth lever is account expansion — more locations, new verticals, additional modules. Clay automates the signal monitoring that makes this repeatable: new business unit announcements, M&amp;A activity, hiring in new regions, and location count changes all get flagged and routed to the right CS or expansion AE automatically.</p>
+        <div class="metric-box">
+          <span class="metric-value">67%</span>
+          <span class="metric-label">of expansion deals sourced from automated account signals</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL PROOF ===== -->
+<section style="background:#fff; padding:96px 40px;">
+  <div class="section-inner">
+    <div class="section-eyebrow">Social Proof</div>
+    <h2 class="section-title">Revenue teams run on Clay</h2>
+    <div class="logos-row">
+      <span class="logo-chip">Intercom</span>
+      <span class="logo-chip">Verkada</span>
+      <span class="logo-chip">OpenAI</span>
+      <span class="logo-chip">Sendoso</span>
+      <span class="logo-chip">Webflow</span>
+      <span class="logo-chip">Ramp</span>
+    </div>
+    <div class="pullquote">
+      <span class="quote-open">"</span>
+      <blockquote>
+        We were spending two days a week manually building lists of multi-location healthcare accounts and guessing at the right contact. Clay cut that to under two hours and the accounts we're reaching out to now actually have the problem we solve. Our pipeline from outbound doubled in one quarter.
+      </blockquote>
+      <div class="quotee">
+        <div class="quotee-avatar">MR</div>
+        <div>
+          <div class="quotee-name">Marcus Reyes</div>
+          <div class="quotee-title">VP of Sales · Enterprise CX Software Company</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INTEGRATIONS ===== -->
+<section>
+  <div class="section-inner">
+    <div class="section-eyebrow">Integrations</div>
+    <h2 class="section-title">Plugs into Reputation's existing stack</h2>
+    <div class="integrations-grid">
+      <div class="integration-card">
+        <div class="integration-icon">☁️</div>
+        <div>
+          <h4>Salesforce CRM</h4>
+          <p>Sync enriched accounts and contacts — with all Clay signals attached — directly into Salesforce fields, no CSV exports or manual entry.</p>
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon">📧</div>
+        <div>
+          <h4>Outreach &amp; Salesloft</h4>
+          <p>Push accounts with personalized first lines and enrichment data into your sequences automatically when they hit your score threshold.</p>
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon">🔗</div>
+        <div>
+          <h4>LinkedIn Sales Navigator</h4>
+          <p>Source VP and Director-level CX, Marketing, and Operations contacts at target accounts — then enrich them with verified emails and intent signals.</p>
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon">📊</div>
+        <div>
+          <h4>HubSpot</h4>
+          <p>For teams running inbound alongside outbound — Clay enriches and scores inbound leads before they hit your SDR queue, so prioritization is automatic.</p>
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon">🌐</div>
+        <div>
+          <h4>Review Data &amp; Web Scraping</h4>
+          <p>Clay's built-in browser scrapes live Google, Yelp, and Trustpilot review scores for any location — powering signal-specific outreach personalization at scale.</p>
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-icon">🧠</div>
+        <div>
+          <h4>6sense &amp; Bombora</h4>
+          <p>Layer intent data on top of Clay's firmographic enrichment to surface accounts that are actively researching reputation management solutions right now.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECURITY ===== -->
+<div class="section-dark">
+  <div class="section-inner">
+    <div class="section-eyebrow">Security &amp; Compliance</div>
+    <h2 class="section-title" style="color:#fff;">Enterprise-grade from day one</h2>
+    <div class="security-grid">
+      <div class="security-item">
+        <div class="security-badge">🔒</div>
+        <h4>SOC 2 Type II</h4>
+        <p>Independently audited security controls covering availability, confidentiality, and data integrity.</p>
+      </div>
+      <div class="security-item">
+        <div class="security-badge">🌍</div>
+        <h4>GDPR &amp; CCPA</h4>
+        <p>Full compliance with EU and California privacy regulations — built into the platform, not bolted on.</p>
+      </div>
+      <div class="security-item">
+        <div class="security-badge">👤</div>
+        <h4>SSO &amp; RBAC</h4>
+        <p>Single sign-on and role-based access controls ensure the right people see the right data — no more, no less.</p>
+      </div>
+      <div class="security-item">
+        <div class="security-badge">🏛️</div>
+        <h4>Data Residency</h4>
+        <p>Choose where your data lives. US and EU data residency options available for enterprise agreements.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta">
+  <div class="section-inner">
+    <div class="section-eyebrow" style="text-align:center;">Get Started</div>
+    <h2>See how Clay drives revenue for Reputation</h2>
+    <p>From multi-location account targeting and review-signal personalization to expansion pipeline monitoring — we'll show you exactly how Reputation's team would run these workflows in a live session.</p>
+    <div class="final-cta-actions">
+      <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange-lg">Book a Tailored Demo</a>
+      <a href="https://clay.com/explore" class="btn-white-lg" style="background:#FFFFFF!important;color:#1D1D1D!important;border:1.5px solid #1D1D1D!important;">Explore a Sample Workspace</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>© 2025 Clay. <span>Go to market with unique data.</span></p>
+</footer>
+
+</body>
+</html>
