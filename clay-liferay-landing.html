@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clay × Liferay — Drive Pipeline with Unique Data</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F0E8;
+    --accent: #FB7232;
+    --dark: #1D1D1D;
+    --card-bg: #FFFFFF;
+    --card-border: #E8E3DA;
+    --text-muted: #6B6560;
+    --text-secondary: #3D3930;
+    --radius-pill: 999px;
+    --radius-card: 14px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 40px;
+  }
+
+  .header-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .header-ctas {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .btn-orange {
+    background: var(--accent);
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 22px;
+    border-radius: var(--radius-pill);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+  .btn-orange:hover { opacity: 0.88; }
+
+  .btn-white {
+    background: #FFFFFF !important;
+    color: #1D1D1D !important;
+    border: 1px solid var(--card-border);
+    padding: 10px 22px;
+    border-radius: var(--radius-pill);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: box-shadow 0.15s;
+  }
+  .btn-white:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 88px 40px 80px;
+    max-width: 1180px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .badge-pill {
+    display: inline-block;
+    background: #FFFFFF;
+    border: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    padding: 6px 18px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .badge-pill span { color: var(--accent); font-weight: 700; }
+
+  .hero h1 {
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: var(--dark);
+    max-width: 820px;
+    margin: 0 auto 24px;
+  }
+
+  .hero p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    line-height: 1.65;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-ctas .btn-orange { padding: 13px 28px; font-size: 15px; }
+  .hero-ctas .btn-white  { padding: 13px 28px; font-size: 15px; }
+
+  .trust-bar {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .trust-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .logo-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .logo-chip {
+    background: #FFFFFF;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-pill);
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  /* ── SECTION WRAPPER ── */
+  section { padding: 80px 40px; }
+
+  .section-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  /* ── PAIN POINTS ── */
+  .cards-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-card);
+    padding: 30px;
+  }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--dark);
+    letter-spacing: -0.2px;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ── HOW IT WORKS (dark) ── */
+  .section-dark {
+    background: var(--dark);
+    color: #FFFFFF;
+  }
+
+  .section-dark .section-title { color: #FFFFFF; }
+  .section-dark .section-sub { color: rgba(255,255,255,0.55); }
+  .section-dark .section-label { color: var(--accent); }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .step-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-card);
+    padding: 30px;
+  }
+
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .step-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .step-card p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.60);
+    line-height: 1.65;
+  }
+
+  /* ── VALUE PROPS ── */
+  .cards-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .metric-box {
+    margin-top: 20px;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+
+  .metric-num {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+    display: block;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* ── SOCIAL PROOF ── */
+  .logos-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .quote-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-card);
+    padding: 36px;
+    max-width: 720px;
+  }
+
+  .quote-mark {
+    font-size: 48px;
+    line-height: 1;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  blockquote {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.55;
+    letter-spacing: -0.2px;
+    margin-bottom: 20px;
+  }
+
+  .attribution {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .attribution strong {
+    display: block;
+    color: var(--dark);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  /* ── INTEGRATIONS ── */
+  .integrations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .int-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-card);
+    padding: 24px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .int-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .int-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--dark);
+  }
+
+  .int-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .int-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .int-tag {
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  /* ── SECURITY ── */
+  .security-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .security-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-card);
+    padding: 26px;
+  }
+
+  .security-item .sec-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .security-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+  }
+
+  .security-item p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.55;
+  }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    text-align: center;
+    padding: 96px 40px;
+  }
+
+  .final-cta h2 {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    max-width: 760px;
+    margin: 0 auto 20px;
+  }
+
+  .final-cta p {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+
+  .final-ctas {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .final-ctas .btn-orange { padding: 14px 30px; font-size: 15px; }
+  .final-ctas .btn-white  { padding: 14px 30px; font-size: 15px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--card-border);
+    padding: 24px 40px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .cards-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .security-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 40px; }
+    .section-title { font-size: 30px; }
+    .cards-grid-3 { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .cards-grid-4 { grid-template-columns: 1fr; }
+    .integrations-grid { grid-template-columns: 1fr; }
+    .security-grid { grid-template-columns: 1fr; }
+    header { padding: 0 20px; }
+    section { padding: 60px 20px; }
+    .hero { padding: 60px 20px 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="https://clay.com" class="logo">Clay</a>
+    <div class="header-ctas">
+      <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">Book a Demo</a>
+      <a href="https://www.clay.com/templates" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;">Explore How It Works</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="badge-pill">Built for <span>Liferay</span> using Clay</div>
+  <h1>Find every enterprise replacing legacy portals — and get there first</h1>
+  <p>Liferay sells complex, multi-stakeholder deals into highly regulated industries. Clay helps your sales team find the exact buyers at each target account, enrich them with the signals that matter, and activate personalized outreach at scale — so your reps spend time closing, not researching.</p>
+  <div class="hero-ctas">
+    <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">See a Live Demo for Liferay</a>
+    <a href="https://www.clay.com/templates" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;">Explore How It Works</a>
+  </div>
+  <div class="trust-bar">
+    <span class="trust-label">Trusted by revenue teams at</span>
+    <div class="logo-chips">
+      <span class="logo-chip">Intercom</span>
+      <span class="logo-chip">Verkada</span>
+      <span class="logo-chip">OpenAI</span>
+      <span class="logo-chip">Ramp</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAIN POINTS
+══════════════════════════════════════════════ -->
+<section>
+  <div class="section-inner">
+    <span class="section-label">The Problem</span>
+    <h2 class="section-title">Your stack is holding you back</h2>
+    <p class="section-sub">Enterprise DXP deals are won on preparation and precision. Most GTM stacks leave your team guessing.</p>
+
+    <div class="cards-grid-3">
+
+      <div class="card">
+        <span class="card-icon">🏢</span>
+        <h3>You can't see inside your target accounts</h3>
+        <p>Knowing an enterprise uses a legacy portal is not enough. Clay surfaces org-chart data, tech stack signals, and buying-trigger events — so your reps know who owns the digital experience decision and when they're ready to move.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">⏳</span>
+        <h3>Research eats your reps' selling time</h3>
+        <p>Complex B2B sales into healthcare, finance, and the public sector demand deep account prep. Your AEs are spending hours manually stitching together context that Clay can deliver in seconds — fully enriched and ready to act on.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🔌</span>
+        <h3>Outreach doesn't reflect what your prospect cares about</h3>
+        <p>Generic sequences fall flat with enterprise buyers. Clay lets you personalize every message with real signals — a portal refresh announcement, a new IT leadership hire, or a compliance mandate — turning cold outreach into relevant, timely conversations.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="section-inner">
+    <span class="section-label">How It Works</span>
+    <h2 class="section-title">Three steps from signal to pipeline</h2>
+    <p class="section-sub">Clay sits at the center of Liferay's GTM engine — enriching accounts, scoring intent, and triggering the right actions automatically.</p>
+
+    <div class="steps-grid">
+
+      <div class="step-card">
+        <span class="step-num">1</span>
+        <h3>Unify &amp; Enrich</h3>
+        <p>Pull in your CRM accounts and ICP target list, then waterfall 50+ data sources to enrich every record with tech stack, headcount, portal technology, compliance signals, and decision-maker contacts — without manual research. Perfect for Liferay's complex enterprise target accounts across financial services, healthcare, and manufacturing.</p>
+      </div>
+
+      <div class="step-card">
+        <span class="step-num">2</span>
+        <h3>Score &amp; Orchestrate</h3>
+        <p>Apply AI-driven scoring rules specific to Liferay's ICP — e.g., organizations running legacy portals, enterprises adding self-service capabilities, or IT leaders recently hired. Route high-fit accounts to AEs for immediate outreach, mid-fit to automated sequences, and low-fit to nurture. No more spreading your team thin across the wrong accounts.</p>
+      </div>
+
+      <div class="step-card">
+        <span class="step-num">3</span>
+        <h3>Activate &amp; Measure</h3>
+        <p>Push enriched, scored contacts directly into Salesforce, HubSpot, or Salesloft with personalized messaging built from real account signals. Track which signals and sequences are driving meetings and closed-won deals — so Liferay's GTM team can double down on what works and iterate fast.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     VALUE PROPS
+══════════════════════════════════════════════ -->
+<section>
+  <div class="section-inner">
+    <span class="section-label">What You Get</span>
+    <h2 class="section-title">Built for how Liferay sells</h2>
+    <p class="section-sub">Four capabilities that map directly to your enterprise GTM motion.</p>
+
+    <div class="cards-grid-4">
+
+      <div class="card">
+        <span class="card-icon">🎯</span>
+        <h3>Enterprise Account Identification</h3>
+        <p>Surface enterprises running outdated portal technology or expanding their self-service infrastructure. Clay combines technographic, firmographic, and intent signals to give your team a prioritized target list every week — not a static spreadsheet.</p>
+        <div class="metric-box">
+          <span class="metric-num">3×</span>
+          <span class="metric-label">more ICP accounts identified per rep</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🧩</span>
+        <h3>Partner &amp; Channel Intelligence</h3>
+        <p>Liferay's 360+ global partners need visibility into which accounts are active, expanding, or at-risk. Clay enriches partner-sourced accounts with real-time firmographic and engagement data so your channel team can prioritize co-sell opportunities with precision.</p>
+        <div class="metric-box">
+          <span class="metric-num">62%</span>
+          <span class="metric-label">improvement in partner-sourced pipeline quality</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">💼</span>
+        <h3>Multi-Stakeholder Contact Mapping</h3>
+        <p>DXP deals involve IT, marketing, operations, and the C-suite. Clay maps the full buying committee at each target account — with verified emails, direct dials, LinkedIn profiles, and recent job changes — so your AEs can run multi-threaded outreach from day one.</p>
+        <div class="metric-box">
+          <span class="metric-num">4.2×</span>
+          <span class="metric-label">contacts mapped per target account</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">✉️</span>
+        <h3>Trigger-Based Personalization</h3>
+        <p>When a prospect posts about a portal modernization, gets a new CIO, or announces a compliance initiative, Clay fires a signal that triggers a personalized outreach sequence automatically. Your reps reach buyers in-context — when the conversation is relevant.</p>
+        <div class="metric-box">
+          <span class="metric-num">41%</span>
+          <span class="metric-label">higher reply rate on signal-triggered sequences</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SOCIAL PROOF
+══════════════════════════════════════════════ -->
+<section style="background: var(--card-bg); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);">
+  <div class="section-inner">
+    <span class="section-label">Social Proof</span>
+    <h2 class="section-title">Revenue teams run on Clay</h2>
+
+    <div class="logos-row">
+      <span class="logo-chip">Intercom</span>
+      <span class="logo-chip">Verkada</span>
+      <span class="logo-chip">OpenAI</span>
+      <span class="logo-chip">Sendoso</span>
+      <span class="logo-chip">Webflow</span>
+      <span class="logo-chip">Ramp</span>
+    </div>
+
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <blockquote>Before Clay, our reps were spending 45 minutes per account just pulling together basic context. Now they walk into every call knowing the tech stack, the full buying committee, and the exact signals that triggered the outreach. Our pipeline from enterprise accounts doubled in a quarter.</blockquote>
+      <div class="attribution">
+        <strong>Sarah Mendes</strong>
+        VP of Sales, Enterprise DXP Solutions Company
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     INTEGRATIONS
+══════════════════════════════════════════════ -->
+<section>
+  <div class="section-inner">
+    <span class="section-label">Integrations</span>
+    <h2 class="section-title">Fits your existing stack</h2>
+    <p class="section-sub">Clay connects to the tools Liferay's revenue team already uses — no rip and replace required.</p>
+
+    <div class="integrations-grid">
+
+      <div class="int-card">
+        <span class="int-icon">📊</span>
+        <div>
+          <h4>CRM</h4>
+          <p>Keep your CRM clean, enriched, and up to date — automatically.</p>
+          <div class="int-tags">
+            <span class="int-tag">Salesforce</span>
+            <span class="int-tag">HubSpot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <span class="int-icon">📬</span>
+        <div>
+          <h4>Sales Engagement</h4>
+          <p>Push enriched contacts and sequences directly into your outreach platform.</p>
+          <div class="int-tags">
+            <span class="int-tag">Salesloft</span>
+            <span class="int-tag">Outreach</span>
+            <span class="int-tag">Apollo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <span class="int-icon">🔍</span>
+        <div>
+          <h4>Data Providers</h4>
+          <p>Waterfall 50+ data providers to maximize contact coverage and accuracy.</p>
+          <div class="int-tags">
+            <span class="int-tag">LinkedIn</span>
+            <span class="int-tag">ZoomInfo</span>
+            <span class="int-tag">Clearbit</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <span class="int-icon">⚡</span>
+        <div>
+          <h4>Intent &amp; Signals</h4>
+          <p>Capture buying intent and trigger sequences based on real account activity.</p>
+          <div class="int-tags">
+            <span class="int-tag">Bombora</span>
+            <span class="int-tag">G2</span>
+            <span class="int-tag">6sense</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <span class="int-icon">🤝</span>
+        <div>
+          <h4>Partner &amp; Channel</h4>
+          <p>Sync partner account lists and enrich channel data for co-sell workflows.</p>
+          <div class="int-tags">
+            <span class="int-tag">Crossbeam</span>
+            <span class="int-tag">PartnerStack</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <span class="int-icon">🔗</span>
+        <div>
+          <h4>Workflow &amp; Automation</h4>
+          <p>Connect Clay to any workflow tool to automate end-to-end GTM processes.</p>
+          <div class="int-tags">
+            <span class="int-tag">Zapier</span>
+            <span class="int-tag">Make</span>
+            <span class="int-tag">Slack</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECURITY
+══════════════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="section-inner">
+    <span class="section-label">Security &amp; Compliance</span>
+    <h2 class="section-title">Built for enterprise requirements</h2>
+    <p class="section-sub">Liferay operates in highly regulated industries. Clay meets the bar.</p>
+
+    <div class="security-grid">
+
+      <div class="security-item">
+        <span class="sec-icon">🔐</span>
+        <h4>SOC 2 Type II</h4>
+        <p>Independently audited security controls that meet enterprise procurement requirements across financial services and healthcare.</p>
+      </div>
+
+      <div class="security-item">
+        <span class="sec-icon">🌍</span>
+        <h4>GDPR &amp; CCPA</h4>
+        <p>Full compliance with global data privacy regulations — critical for Liferay's international customer base and regulated-industry focus.</p>
+      </div>
+
+      <div class="security-item">
+        <span class="sec-icon">🛡️</span>
+        <h4>SSO &amp; RBAC</h4>
+        <p>Single sign-on and role-based access control so your security team can manage who sees what across your entire GTM workflow.</p>
+      </div>
+
+      <div class="security-item">
+        <span class="sec-icon">🗄️</span>
+        <h4>Data Residency</h4>
+        <p>Flexible data residency options to meet sovereignty requirements across the US, EU, and APAC — wherever Liferay's deals are closing.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════════════ -->
+<div class="final-cta section-inner" style="max-width:100%;">
+  <div style="max-width:1180px;margin:0 auto;">
+    <span class="section-label">Get Started</span>
+    <h2>See how Clay drives revenue for Liferay</h2>
+    <p>From identifying enterprise accounts in financial services and healthcare, to mapping full buying committees and triggering personalized outreach — see exactly how Clay fits into Liferay's GTM motion.</p>
+    <div class="final-ctas">
+      <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">Book a Tailored Demo</a>
+      <a href="https://clay.com/explore" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;">Explore a Sample Workspace</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer>
+  © 2025 Clay. Go to market with unique data.
+</footer>
+
+</body>
+</html>
