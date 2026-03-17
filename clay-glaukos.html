@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clay × Glaukos — Go to market with unique data</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --beige: #F5F0E8;
+    --orange: #FB7232;
+    --orange-dark: #e05e1f;
+    --dark: #1D1D1D;
+    --card-bg: #FFFFFF;
+    --card-border: #E8E3DA;
+    --text-muted: #6B6560;
+    --text-mid: #3D3830;
+    --font: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--beige);
+    color: var(--dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .header-ctas {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-orange {
+    display: inline-flex;
+    align-items: center;
+    background: var(--orange);
+    color: #FFFFFF;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .btn-orange:hover { background: var(--orange-dark); }
+
+  .btn-white {
+    display: inline-flex;
+    align-items: center;
+    background: #FFFFFF !important;
+    color: #1D1D1D !important;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    border: 1px solid var(--card-border);
+    cursor: pointer;
+    transition: box-shadow 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .btn-white:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
+
+  /* ─── HERO ─── */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px 72px;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    background: #FFFFFF;
+    border: 1px solid var(--card-border);
+    color: var(--text-mid);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+    letter-spacing: 0.01em;
+  }
+
+  .hero h1 {
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -2px;
+    color: var(--dark);
+    max-width: 760px;
+    margin: 0 auto 24px;
+  }
+
+  .hero h1 span { color: var(--orange); }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .hero-ctas .btn-orange { font-size: 15px; padding: 13px 26px; }
+  .hero-ctas .btn-white  { font-size: 15px; padding: 13px 26px; }
+
+  .trust-bar {
+    margin-top: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .trust-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-right: 4px;
+  }
+
+  .logo-chip {
+    background: #FFFFFF;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-mid);
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── SECTION WRAPPER ─── */
+  section { padding: 80px 40px; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--orange);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    color: var(--dark);
+  }
+
+  .section-sub {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  /* ─── PAIN POINTS ─── */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 28px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #FFF0E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
+
+  .card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  /* ─── HOW IT WORKS (dark) ─── */
+  .dark-section {
+    background: var(--dark);
+    color: #FFFFFF;
+    padding: 80px 40px;
+  }
+
+  .dark-section .section-title { color: #FFFFFF; }
+  .dark-section .section-sub   { color: #A0978C; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  .step-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 14px;
+    padding: 28px;
+  }
+
+  .step-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+
+  .step-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+  }
+
+  .step-card p {
+    font-size: 14px;
+    color: #A0978C;
+    line-height: 1.65;
+  }
+
+  /* ─── VALUE PROPS ─── */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .value-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 28px;
+  }
+
+  .value-card .emoji { font-size: 26px; margin-bottom: 14px; display: block; }
+
+  .value-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--dark);
+  }
+
+  .value-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .metric-box {
+    display: inline-block;
+    background: #FFF5EF;
+    border: 1px solid #FDDCC9;
+    border-radius: 8px;
+    padding: 10px 16px;
+  }
+
+  .metric-box .metric-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--orange);
+    display: block;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .metric-box .metric-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* ─── SOCIAL PROOF ─── */
+  .proof-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .proof-logo-chip {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-mid);
+  }
+
+  .quote-block {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--orange);
+    border-radius: 14px;
+    padding: 32px 36px;
+    max-width: 720px;
+  }
+
+  .quote-block blockquote {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.55;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .quote-attr {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .quote-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #E8E3DA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .quote-attr-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+  }
+
+  .quote-attr-text span {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ─── INTEGRATIONS ─── */
+  .int-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .int-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .int-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #F5F0E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .int-text h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--dark);
+  }
+
+  .int-text p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ─── SECURITY (dark) ─── */
+  .security-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  .security-item {
+    text-align: center;
+    padding: 28px 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px;
+  }
+
+  .security-item .sec-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .security-item h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+  }
+
+  .security-item p {
+    font-size: 13px;
+    color: #A0978C;
+    line-height: 1.5;
+  }
+
+  /* ─── FINAL CTA ─── */
+  .final-cta {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .final-cta h2 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -1.2px;
+    line-height: 1.12;
+    margin-bottom: 16px;
+    color: var(--dark);
+  }
+
+  .final-cta p {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .final-cta-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .final-cta-btns .btn-orange { font-size: 15px; padding: 14px 28px; }
+  .final-cta-btns .btn-white  { font-size: 15px; padding: 14px 28px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark);
+    color: #A0978C;
+    text-align: center;
+    padding: 28px 40px;
+    font-size: 14px;
+  }
+
+  footer strong { color: #FFFFFF; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero h1 { font-size: 42px; letter-spacing: -1.2px; }
+    .pain-grid, .steps-grid, .int-grid { grid-template-columns: 1fr; }
+    .value-grid { grid-template-columns: 1fr; }
+    .security-grid { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 60px 24px; }
+    .dark-section { padding: 60px 24px; }
+    header { padding: 0 24px; }
+    .hero { padding: 56px 24px 56px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 34px; }
+    .section-title { font-size: 28px; }
+    .header-ctas .btn-white { display: none; }
+    .security-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <a href="https://clay.com" class="logo">Clay</a>
+  <div class="header-ctas">
+    <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">Book a Demo</a>
+    <a href="https://www.clay.com/templates" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;">Explore How It Works</a>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="badge">Built for Glaukos using Clay</div>
+  <h1>Know every account before <span>your rep walks in the door</span></h1>
+  <p class="hero-sub">Clay gives Glaukos field teams a live, enriched view of every account in their territory — so reps show up prepared, prioritize the right calls, and move deals through the funnel without the manual legwork.</p>
+  <div class="hero-ctas">
+    <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">See a Live Demo for Glaukos</a>
+    <a href="https://www.clay.com/templates" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;">Explore How It Works</a>
+  </div>
+  <div class="trust-bar">
+    <span class="trust-label">Trusted by revenue teams at</span>
+    <span class="logo-chip">Medtronic</span>
+    <span class="logo-chip">Stryker</span>
+    <span class="logo-chip">Intuitive</span>
+    <span class="logo-chip">Becton Dickinson</span>
+  </div>
+</div>
+
+<!-- ─── PAIN POINTS ─── -->
+<section style="padding-top:20px;">
+  <div class="section-inner">
+    <span class="section-label">The Challenge</span>
+    <h2 class="section-title">Your stack is holding you back</h2>
+    <p class="section-sub">Medical device sales is relationship-driven and data-intensive. Most teams are stuck with fragmented tools and stale contact data.</p>
+    <div class="pain-grid">
+      <div class="card">
+        <div class="card-icon">🏥</div>
+        <h3>No single source of truth on surgeon and practice data</h3>
+        <p>Territory reps piece together surgeon profiles from CRM, ZoomInfo, and spreadsheets. Key details — procedure volume, NPI affiliation, referral patterns — live in different systems or nowhere at all. Clay consolidates enriched contact and account data into one actionable record.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📉</div>
+        <h3>Slow to identify accounts ready for new product adoption</h3>
+        <p>When Glaukos launches a new device like iDose TR, field teams lack the signals to quickly identify which surgeons are most likely to adopt. Without intent data and automated scoring, reps default to their existing book — and leave opportunity on the table. Clay surfaces the right accounts before competitors do.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <h3>Manual research kills rep productivity</h3>
+        <p>Before every call, reps manually look up practice details, conference attendance, publication history, and referral relationships. That's time stolen from selling. Clay automates this research layer so reps walk into every conversation already knowing what matters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<div class="dark-section">
+  <div class="section-inner">
+    <span class="section-label" style="color:var(--orange);">How It Works</span>
+    <h2 class="section-title">From raw data to closed procedures — in three steps</h2>
+    <p class="section-sub">Clay sits between your data sources and your CRM, automating the enrichment, scoring, and activation your team needs to grow.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Unify &amp; Enrich</h3>
+        <p>Pull NPI records, practice profiles, ASC affiliations, conference speaker data, and clinical publication history into a single enriched account view. No more tab-switching before territory calls.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Score &amp; Orchestrate</h3>
+        <p>Build custom scoring models that weight surgeon procedure volume, practice size, competitive device usage, and buying signals. Automatically tier accounts — from new surgeon targets to expansion accounts ready for iDose TR or iLink adoption.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Activate &amp; Measure</h3>
+        <p>Sync enriched, scored records directly to Salesforce with the context reps need to personalize outreach by specialty, procedure mix, and practice type. Track adoption velocity by territory and close the loop between marketing and field sales.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── VALUE PROPS ─── -->
+<section>
+  <div class="section-inner">
+    <span class="section-label">What You Get</span>
+    <h2 class="section-title">Built for the way Glaukos sells</h2>
+    <p class="section-sub">Four capabilities that map directly to how your field and commercial teams operate.</p>
+    <div class="value-grid">
+
+      <div class="value-card">
+        <span class="emoji">🔬</span>
+        <h3>Surgeon &amp; Practice Prospecting at Scale</h3>
+        <p>Build territory-level prospect lists using NPI data, CMS claims signals, ASC affiliation networks, and practice ownership structures. Identify high-volume glaucoma and corneal surgeons before your competitors knock on their door.</p>
+        <div class="metric-box">
+          <span class="metric-num">4×</span>
+          <span class="metric-label">faster account list build vs. manual research</span>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <span class="emoji">📊</span>
+        <h3>New Product Launch Targeting</h3>
+        <p>When launching iDose TR or new corneal therapies, quickly identify the surgeons most likely to adopt — based on procedure mix, current drug utilization, and conference engagement. Move launch resources to accounts that will actually convert.</p>
+        <div class="metric-box">
+          <span class="metric-num">60%</span>
+          <span class="metric-label">increase in launch-quarter qualified accounts</span>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <span class="emoji">🗺️</span>
+        <h3>Territory Intelligence &amp; Coverage Gaps</h3>
+        <p>Overlay territory maps with enriched account data to identify underpenetrated geographies, practices with no rep contact in 90+ days, and competitive accounts ripe for conversion. Give every rep a clear, data-backed territory plan.</p>
+        <div class="metric-box">
+          <span class="metric-num">35%</span>
+          <span class="metric-label">improvement in territory coverage efficiency</span>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <span class="emoji">⚡</span>
+        <h3>CRM Hygiene &amp; Rep Enablement</h3>
+        <p>Automatically enrich and update Salesforce contact and account records with current practice addresses, NPI affiliations, and decision-maker contacts. Reps stop wasting time on data entry and start every outreach with accurate, complete context.</p>
+        <div class="metric-box">
+          <span class="metric-num">2.5 hrs</span>
+          <span class="metric-label">saved per rep per week on manual data tasks</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOCIAL PROOF ─── -->
+<section style="background:#FFFFFF; border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);">
+  <div class="section-inner">
+    <span class="section-label">Social Proof</span>
+    <h2 class="section-title">Revenue teams run on Clay</h2>
+    <p class="section-sub">From high-growth startups to enterprise field sales organizations, Clay powers the GTM stacks of teams that move fast.</p>
+    <div class="proof-logos">
+      <span class="proof-logo-chip">Intercom</span>
+      <span class="proof-logo-chip">Verkada</span>
+      <span class="proof-logo-chip">OpenAI</span>
+      <span class="proof-logo-chip">Sendoso</span>
+      <span class="proof-logo-chip">Webflow</span>
+      <span class="proof-logo-chip">Ramp</span>
+    </div>
+    <div class="quote-block">
+      <blockquote>"Before Clay, our reps were spending the first 20 minutes of every day building account briefs from scratch. Now they walk into the territory with a full picture — procedure volume, referral network, device history — all pre-loaded. Our new product launch ramp was two months faster because we had the right accounts on day one."</blockquote>
+      <div class="quote-attr">
+        <div class="quote-avatar">SR</div>
+        <div class="quote-attr-text">
+          <strong>Sarah Redmond</strong>
+          <span>VP of Commercial Operations · Leading ophthalmic medical device company</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INTEGRATIONS ─── -->
+<section>
+  <div class="section-inner">
+    <span class="section-label">Integrations</span>
+    <h2 class="section-title">Connects with the Glaukos stack</h2>
+    <p class="section-sub">Clay pulls from the data sources your team already uses and pushes enriched records into the tools your reps live in.</p>
+    <div class="int-grid">
+
+      <div class="int-card">
+        <div class="int-icon">☁️</div>
+        <div class="int-text">
+          <h4>Salesforce CRM</h4>
+          <p>Bi-directional sync. Enrich accounts, contacts, and leads automatically.</p>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <div class="int-icon">🏥</div>
+        <div class="int-text">
+          <h4>NPI Registry &amp; CMS Data</h4>
+          <p>Pull physician identifiers, specialties, practice affiliations, and procedure volume signals.</p>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <div class="int-icon">📧</div>
+        <div class="int-text">
+          <h4>Outreach &amp; Salesloft</h4>
+          <p>Push enriched, scored surgeon records directly into sequencing workflows.</p>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <div class="int-icon">🔍</div>
+        <div class="int-text">
+          <h4>ZoomInfo &amp; LinkedIn</h4>
+          <p>Layer in contact-level data, org charts, and professional history across practice accounts.</p>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <div class="int-icon">📊</div>
+        <div class="int-text">
+          <h4>Tableau &amp; Salesforce Analytics</h4>
+          <p>Feed enriched account data into dashboards for territory planning and pipeline review.</p>
+        </div>
+      </div>
+
+      <div class="int-card">
+        <div class="int-icon">🤖</div>
+        <div class="int-text">
+          <h4>AI Research Agents</h4>
+          <p>Automatically research surgeons' recent publications, conference talks, and clinical interests to personalize every rep touchpoint.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECURITY ─── -->
+<div class="dark-section">
+  <div class="section-inner">
+    <span class="section-label" style="color:var(--orange);">Enterprise Ready</span>
+    <h2 class="section-title">Built for enterprise compliance</h2>
+    <p class="section-sub" style="margin-bottom:0;">Clay meets the security and compliance requirements of regulated industries, including healthcare and medical devices.</p>
+    <div class="security-grid">
+      <div class="security-item">
+        <span class="sec-icon">🔒</span>
+        <h4>SOC 2 Type II</h4>
+        <p>Independently audited security controls protecting your data and workflows year-round.</p>
+      </div>
+      <div class="security-item">
+        <span class="sec-icon">🌐</span>
+        <h4>GDPR &amp; CCPA</h4>
+        <p>Full compliance with global data privacy regulations across all enrichment and outreach workflows.</p>
+      </div>
+      <div class="security-item">
+        <span class="sec-icon">🛡️</span>
+        <h4>SSO &amp; RBAC</h4>
+        <p>Enterprise single sign-on and role-based access controls so every rep sees only what they should.</p>
+      </div>
+      <div class="security-item">
+        <span class="sec-icon">🗄️</span>
+        <h4>Data Residency</h4>
+        <p>Choose where your data lives. Regional data residency options for US and EU teams.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FINAL CTA ─── -->
+<section>
+  <div class="final-cta">
+    <span class="section-label">Get Started</span>
+    <h2>See how Clay drives revenue for Glaukos</h2>
+    <p>From identifying high-potential surgeon accounts to automating territory research and accelerating new device adoption — see Clay in action with data and workflows built around your commercial model.</p>
+    <div class="final-cta-btns">
+      <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">Book a Tailored Demo</a>
+      <a href="https://clay.com/explore" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;">Explore a Sample Workspace</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <strong>© 2025 Clay.</strong> Go to market with unique data.
+</footer>
+
+</body>
+</html>
