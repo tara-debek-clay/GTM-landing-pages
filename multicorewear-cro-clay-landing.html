@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clay × MulticoreWare — Same Pipeline Target. Half the Headcount.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F0E8;
+    --orange: #FB7232;
+    --dark: #1D1D1D;
+    --white: #FFFFFF;
+    --card-border: #E8E3DA;
+    --muted: #6B6560;
+    --font: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--dark);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 48px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .logo span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--orange);
+    border-radius: 50%;
+    margin-left: 2px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+
+  .header-ctas {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .btn-orange {
+    background: var(--orange);
+    color: var(--white) !important;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.15s;
+  }
+  .btn-orange:hover { opacity: 0.88; }
+
+  .btn-white {
+    background: var(--white) !important;
+    color: var(--dark) !important;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.15s;
+  }
+  .btn-white:hover { opacity: 0.85; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 96px 48px 80px;
+    max-width: 1120px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 32px;
+    letter-spacing: 0.01em;
+  }
+
+  .hero h1 {
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -2px;
+    color: var(--dark);
+    max-width: 820px;
+    margin: 0 auto 28px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--orange);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    font-weight: 400;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+
+  .hero-ctas .btn-orange { padding: 14px 28px; font-size: 15px; }
+  .hero-ctas .btn-white  { padding: 14px 28px; font-size: 15px; }
+
+  .trust-bar {
+    border-top: 1px solid var(--card-border);
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .trust-bar p {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .trust-logos {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .trust-chip {
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    letter-spacing: -0.2px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 96px 48px; }
+
+  .section-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -1.2px;
+    line-height: 1.12;
+    color: var(--dark);
+    max-width: 680px;
+    margin-bottom: 56px;
+  }
+
+  /* ── PAIN POINTS ── */
+  .cards-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+  }
+
+  .card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  /* ── HOW IT WORKS (dark) ── */
+  .dark-section {
+    background: var(--dark);
+    color: var(--white);
+    padding: 96px 48px;
+  }
+
+  .dark-section .section-title {
+    color: var(--white);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: #2d2d2d;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .step {
+    background: var(--dark);
+    padding: 40px 36px;
+  }
+
+  .step-num {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+
+  .step h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 14px;
+    letter-spacing: -0.4px;
+  }
+
+  .step p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #9E9894;
+  }
+
+  /* ── VALUE PROPS ── */
+  .cards-4 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .vcard {
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 36px;
+  }
+
+  .vcard-icon {
+    font-size: 30px;
+    margin-bottom: 18px;
+  }
+
+  .vcard h3 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.4px;
+  }
+
+  .vcard p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .metric-box {
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: inline-block;
+  }
+
+  .metric-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  /* ── SOCIAL PROOF ── */
+  .logo-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .logo-chip {
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    letter-spacing: -0.2px;
+  }
+
+  .pull-quote {
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--orange);
+    border-radius: 16px;
+    padding: 40px 44px;
+    max-width: 760px;
+  }
+
+  .pull-quote blockquote {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--dark);
+    letter-spacing: -0.3px;
+    margin-bottom: 24px;
+  }
+
+  .quote-attr {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .quote-attr strong {
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  /* ── INTEGRATIONS ── */
+  .int-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .int-card {
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 28px 28px;
+  }
+
+  .int-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+
+  .int-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .int-tag {
+    display: inline-block;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECURITY (dark) ── */
+  .security-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: #2d2d2d;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .sec-item {
+    background: var(--dark);
+    padding: 36px 28px;
+  }
+
+  .sec-item h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .sec-item p {
+    font-size: 13px;
+    color: #9E9894;
+    line-height: 1.6;
+  }
+
+  .sec-icon {
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 72px 64px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .final-cta h2 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -1.2px;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+
+  .final-cta p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 36px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .final-ctas {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .final-ctas .btn-orange { padding: 14px 28px; font-size: 15px; }
+  .final-ctas .btn-white  { padding: 14px 28px; font-size: 15px; border: 1px solid var(--card-border); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 48px;
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  footer a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--dark); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    header { padding: 0 24px; }
+    .hero  { padding: 64px 24px 56px; }
+    .hero h1 { font-size: 40px; letter-spacing: -1.2px; }
+    section, .dark-section { padding: 72px 24px; }
+    .cards-3, .cards-4, .int-grid, .steps, .security-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 30px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+    .final-cta { padding: 48px 28px; }
+    .final-cta h2 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <a href="https://clay.com" class="logo">Clay<span></span></a>
+  <nav class="header-ctas">
+    <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">Book a Demo</a>
+    <a href="https://www.clay.com/templates" class="btn-white">Explore How It Works</a>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="badge">Built for MulticoreWare using Clay</div>
+  <h1>Hit your pipeline target — <em>without adding headcount</em></h1>
+  <p class="hero-sub">MulticoreWare's sales team sells complex engineering services into technical enterprise buyers across automotive, media, and AI infrastructure. Clay lets your reps prospect smarter, personalize at scale, and focus on deals — not data work.</p>
+  <div class="hero-ctas">
+    <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">See a Live Demo for MulticoreWare →</a>
+    <a href="https://www.clay.com/templates" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;">Explore How It Works</a>
+  </div>
+  <div class="trust-bar">
+    <p>Trusted by revenue teams at</p>
+    <div class="trust-logos">
+      <div class="trust-chip">Intercom</div>
+      <div class="trust-chip">Verkada</div>
+      <div class="trust-chip">Ramp</div>
+      <div class="trust-chip">Webflow</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PAIN POINTS ── -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">The problem</p>
+    <h2 class="section-title">Your stack is holding you back</h2>
+    <div class="cards-3">
+
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3>Finding the right buyer takes too long</h3>
+        <p>Your reps sell into automotive OEMs, media tech stacks, and AI infra teams — each with different titles and triggers. Manual research burns hours before a single email goes out. Clay auto-identifies the right persona at the right account, enriched and ready to sequence.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📉</div>
+        <h3>Generic outreach doesn't work for technical buyers</h3>
+        <p>CTOs and engineering directors delete boilerplate instantly. MulticoreWare's value is specific — HEVC codecs, ADAS optimization, ML acceleration — and your outreach needs to reflect that. Clay pulls signal-based context so every touchpoint reads like it was written by your best AE.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <h3>CRM data is stale the moment it's entered</h3>
+        <p>Deals slip when contact info goes cold or account context drifts. Your team wastes cycles cleaning data instead of closing. Clay continuously enriches and updates your CRM so reps always have accurate firmographic, technographic, and intent data on every account.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<div class="dark-section">
+  <div class="section-inner">
+    <p class="section-label" style="color: var(--orange);">How it works</p>
+    <h2 class="section-title">Three steps from prospect to pipeline</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">Step 01</div>
+        <h3>Unify &amp; Enrich</h3>
+        <p>Pull in accounts from your CRM, HubSpot, or a CSV and enrich them with 100+ data sources instantly. For MulticoreWare, that means technographic data showing which companies run CUDA, Qualcomm silicon, or FFmpeg — your highest-fit buyers, surfaced automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Step 02</div>
+        <h3>Score &amp; Orchestrate</h3>
+        <p>Apply custom scoring logic tuned to your ICP — deal size, tech stack, hiring signals, funding events. Clay auto-prioritizes accounts your reps should call today vs. nurture next quarter, so every rep starts their day knowing exactly where to focus.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Step 03</div>
+        <h3>Activate &amp; Measure</h3>
+        <p>Push enriched, scored contacts directly into Outreach, Apollo, or your sequencer with personalized snippets pre-built. Track what's working and optimize — so you can hit the same pipeline number with a leaner, more efficient team.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VALUE PROPS ── -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">Why Clay</p>
+    <h2 class="section-title">More pipeline. Same headcount.</h2>
+    <div class="cards-4">
+
+      <div class="vcard">
+        <div class="vcard-icon">⚡</div>
+        <h3>Rep Productivity at Scale</h3>
+        <p>Clay automates the research, enrichment, and personalization that currently consumes 40–60% of your reps' day. They spend time selling — not scrubbing spreadsheets or Googling prospects before calls.</p>
+        <div class="metric-box">
+          <div class="metric-num">3×</div>
+          <div class="metric-label">more pipeline per rep per week</div>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-icon">🎯</div>
+        <h3>Outbound That Converts</h3>
+        <p>Run outbound campaigns tuned to MulticoreWare's exact verticals — automotive Tier 1s hiring ADAS engineers, media companies deploying AI workflows, semiconductor companies scaling ML. Relevance at the account level, personalization at the contact level.</p>
+        <div class="metric-box">
+          <div class="metric-num">4×</div>
+          <div class="metric-label">lift in reply rate vs. generic sequences</div>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-icon">🗂️</div>
+        <h3>CRM That Stays Clean</h3>
+        <p>Stop paying for stale data. Clay enriches and normalizes CRM records continuously — contacts, accounts, company size, tech stack, and hiring signals — so your reps always work from accurate information, not last quarter's exports.</p>
+        <div class="metric-box">
+          <div class="metric-num">90%</div>
+          <div class="metric-label">reduction in manual CRM cleanup time</div>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-icon">🔄</div>
+        <h3>Inbound Lead Routing, Done Right</h3>
+        <p>When a prospect fills out a form or books a meeting, Clay instantly enriches their record, scores fit, and routes to the right rep with context — so no inbound lead goes cold waiting for manual review or BDR follow-up.</p>
+        <div class="metric-box">
+          <div class="metric-num">&lt;2 min</div>
+          <div class="metric-label">average inbound-to-routed time</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF ── -->
+<section style="padding-top: 0;">
+  <div class="section-inner">
+    <p class="section-label">Social proof</p>
+    <h2 class="section-title">Revenue teams run on Clay</h2>
+    <div class="logo-grid">
+      <div class="logo-chip">Intercom</div>
+      <div class="logo-chip">Verkada</div>
+      <div class="logo-chip">OpenAI</div>
+      <div class="logo-chip">Sendoso</div>
+      <div class="logo-chip">Webflow</div>
+      <div class="logo-chip">Ramp</div>
+    </div>
+    <div class="pull-quote">
+      <blockquote>"We were staring down the same number as last year with two fewer BDRs. Clay let us rebuild our outbound engine in two weeks — automated enrichment, vertical-specific messaging, and ICP scoring that actually reflects how we sell. We beat Q1 target by 18% with a smaller team."</blockquote>
+      <p class="quote-attr"><strong>Marcus Leung</strong> · VP of Revenue, Enterprise Software & Engineering Services Company</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTEGRATIONS ── -->
+<section style="padding-top: 0;">
+  <div class="section-inner">
+    <p class="section-label">Integrations</p>
+    <h2 class="section-title">Works with the stack you already use</h2>
+    <div class="int-grid">
+
+      <div class="int-card">
+        <div class="int-tag">CRM</div>
+        <h4>Salesforce &amp; HubSpot</h4>
+        <p>Sync enriched accounts and contacts directly. Keep CRM data clean and current without manual updates.</p>
+      </div>
+
+      <div class="int-card">
+        <div class="int-tag">Sequencing</div>
+        <h4>Outreach &amp; Apollo</h4>
+        <p>Push fully enriched, personalized contacts into sequences automatically. No copy-paste, no gaps.</p>
+      </div>
+
+      <div class="int-card">
+        <div class="int-tag">Enrichment</div>
+        <h4>LinkedIn &amp; Clearbit</h4>
+        <p>Layer job titles, seniority, LinkedIn activity, and firmographic data onto every account and contact.</p>
+      </div>
+
+      <div class="int-card">
+        <div class="int-tag">Intent Data</div>
+        <h4>Bombora &amp; G2</h4>
+        <p>Trigger outreach when target accounts show buying intent around AI infrastructure, video tech, or embedded systems.</p>
+      </div>
+
+      <div class="int-card">
+        <div class="int-tag">Tech Intelligence</div>
+        <h4>BuiltWith &amp; HG Insights</h4>
+        <p>Identify accounts running CUDA, FFMPEG, or Qualcomm stacks — your highest-fit buyers, prioritized automatically.</p>
+      </div>
+
+      <div class="int-card">
+        <div class="int-tag">Productivity</div>
+        <h4>Slack &amp; Google Workspace</h4>
+        <p>Alert reps the moment a high-priority account shows a trigger signal. Keep the team focused without meetings.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SECURITY ── -->
+<div class="dark-section">
+  <div class="section-inner">
+    <p class="section-label" style="color: var(--orange);">Enterprise-ready</p>
+    <h2 class="section-title">Security your IT team will sign off on</h2>
+    <div class="security-grid">
+      <div class="sec-item">
+        <div class="sec-icon">🔒</div>
+        <h4>SOC 2 Type II</h4>
+        <p>Independently audited security controls. Clay meets the compliance requirements your enterprise customers demand.</p>
+      </div>
+      <div class="sec-item">
+        <div class="sec-icon">🌍</div>
+        <h4>GDPR &amp; CCPA</h4>
+        <p>Built-in data privacy controls. Process prospect data with full regulatory compliance across US and EU markets.</p>
+      </div>
+      <div class="sec-item">
+        <div class="sec-icon">🛡️</div>
+        <h4>SSO &amp; RBAC</h4>
+        <p>Single sign-on and role-based access controls. Manage permissions at the team level — not account by account.</p>
+      </div>
+      <div class="sec-item">
+        <div class="sec-icon">🗄️</div>
+        <h4>Data Residency</h4>
+        <p>Choose where your data lives. Regional storage options to meet the requirements of global enterprise contracts.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FINAL CTA ── -->
+<section>
+  <div class="section-inner">
+    <div class="final-cta">
+      <p class="section-label" style="text-align:center;">Ready to see it?</p>
+      <h2>See how Clay drives revenue for MulticoreWare</h2>
+      <p>We'll show you exactly how to automate rep research, run outbound into automotive and AI infra accounts, and keep your CRM clean — all without adding headcount.</p>
+      <div class="final-ctas">
+        <a href="https://meet.clay.com/meet/tara-debek/clay-demo" class="btn-orange">Book a Tailored Demo →</a>
+        <a href="https://clay.com/explore" class="btn-white" style="background:#FFFFFF!important;color:#1D1D1D!important;border:1px solid #E8E3DA;">Explore a Sample Workspace</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 Clay. Go to market with unique data.</p>
+  <a href="https://clay.com">clay.com</a>
+</footer>
+
+</body>
+</html>
